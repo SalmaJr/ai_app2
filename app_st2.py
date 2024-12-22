@@ -23,6 +23,7 @@ ai_key = st.secrets['AI_SERVICE_KEY']
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from azure.cognitiveservices.vision.computervision.models import VisualFeatureTypes
 from msrest.authentication import CognitiveServicesCredentials
+from azure.cognitiveservices.vision.computervision.models import OperationStatusCodes
 
 # Authenticate Azure AI Vision client
 credential = CognitiveServicesCredentials(ai_key) 
