@@ -1,5 +1,6 @@
 import streamlit as st
 import io
+import time
 
 st.title("EMC2 / Cloud AI Module -- SJ")
 st.header("App for testing Azure AI Service")
@@ -138,10 +139,9 @@ def Readtextfromimage(image_file):
     # Wait for the asynchronous operation to complete
     while True:
         read_results = cv_client.get_read_result(operation_id)
-        st.write(read_results)
-        # if read_results.status not in [OperationStatusCodes.running, OperationStatusCodes.not_started]:
-        #     break
-        # time.sleep(1)
+        if read_results.status not in [OperationStatusCodes.running, OperationStatusCodes.not_started]:
+            break
+        time.sleep(1)
 
     # If the operation was successfully, process the text line by line
     if read_results.status == OperationStatusCodes.succeeded:
