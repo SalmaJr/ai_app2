@@ -1,7 +1,7 @@
 import streamlit as st
 import io
 
-st.title("EMC2 / Cloud AI Module")
+st.title("EMC2 / Cloud AI Module -- SJ")
 st.header("App for testing Azure AI Service")
 
 st.sidebar.image("https://seeklogo.com/images/E/ecole-hassania-des-travaux-publics-ehtp-logo-3D5770F217-seeklogo.com.png")
