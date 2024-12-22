@@ -124,6 +124,32 @@ def GetThumbnail(image_file):
     st.write("Generated Thumbnail:")
     st.image(thumbnail_image, caption="Thumbnail")
 
+def Readtextfromimage(image_file):
+    # Use Read API to read text in image
+    with open(image_file, mode="rb") as image_data:
+        read_op = cv_client.read_in_stream(image_data, raw=True)
+
+        # Get the async operation ID so we can check for the results
+        operation_location = read_op.headers["Operation-Location"]
+        operation_id = operation_location.split("/")[-1]
+
+        # Wait for the asynchronous operation to complete
+        while True:
+            read_results = cv_client.get_read_result(operation_id)
+            if read_results.status not in [OperationStatusCodes.running, OperationStatusCodes.not_started]:
+                break
+            time.sleep(1)
+
+        # If the operation was successfully, process the text line by line
+        if read_results.status == OperationStatusCodes.succeeded:
+            for page in read_results.analyze_result.read_results:
+                for line in page.lines:
+                    # print(line.text)
+                    # Uncomment the following line if you'd like to see the bounding box 
+                    #print(line.bounding_box)
+                    st.write("Generated Text:")
+                    st.write(line.text)
+                    
    
     
 if app == "Image Analysis" :
@@ -144,7 +170,12 @@ if app == "Thumbnail Image" :
         
 elif app == "OCR" :
     st.subheader("Application : OCR")
-    st.write('ok')
+    # st.write('ok')
+    # Get image
+    image_file = st.file_uploader('Load image ',type=['png', 'jpg'])
+    if image_file is not None:
+        st.image(image_file)
+        Readtextfromimage(image_file)
     
 elif app == "Face Analysis" :
     st.subheader("Application : Face Analysis")
