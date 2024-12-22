@@ -140,7 +140,7 @@ def Readtextfromimage(image_file):
         read_results = cv_client.get_read_result(operation_id)
         if read_results.status not in [OperationStatusCodes.running, OperationStatusCodes.not_started]:
             break
-        # time.sleep(1)
+        time.sleep(1)
 
     # If the operation was successfully, process the text line by line
     if read_results.status == OperationStatusCodes.succeeded:
