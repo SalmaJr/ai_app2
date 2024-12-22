@@ -138,9 +138,10 @@ def Readtextfromimage(image_file):
     # Wait for the asynchronous operation to complete
     while True:
         read_results = cv_client.get_read_result(operation_id)
-        if read_results.status not in [OperationStatusCodes.running, OperationStatusCodes.not_started]:
-            break
-        time.sleep(1)
+        st.write(read_results)
+        # if read_results.status not in [OperationStatusCodes.running, OperationStatusCodes.not_started]:
+        #     break
+        # time.sleep(1)
 
     # If the operation was successfully, process the text line by line
     if read_results.status == OperationStatusCodes.succeeded:
